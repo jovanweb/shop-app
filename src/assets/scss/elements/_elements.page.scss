@@ -1,0 +1,84 @@
+/* ------------------------------------*\
+    #PAGE
+\*------------------------------------ */
+
+
+html {
+  min-height: 100vh;
+  color: $color-text;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  font-weight: 400;
+}
+
+address,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+p,
+pre,
+dl,
+ol,
+ul,
+figure,
+hr,
+table,
+fieldset {
+  margin-bottom: $spacing-unit;
+}
+
+img {
+  max-width: 100%;
+}
+
+p {
+  line-height: 30px;
+}
+
+strong {
+  font-weight: 700;
+}
+
+main {
+  padding-top: 100px;
+}
+
+svg, path {
+  transition: all .3s ease;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #e2e2e2;
+  border-radius: 50px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background: #222;
+  width: 4.5px;
+}
+
+::-webkit-scrollbar-thumb:horizontal{
+  background: #222;
+  border-radius: 50px;
+}
+
+* {
+  scrollbar-color: #222 #e2e2e2;
+  scrollbar-width: thin;
+}
+
+main {
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
