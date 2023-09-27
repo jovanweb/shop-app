@@ -2,9 +2,9 @@
     <main>
         <section>
             <div class="o-container">
-                <a href="javascript:;" @click="paymentComponent = 'ShippingAddress'">ShippingAddress</a>
-                <a href="javascript:;" @click="paymentComponent = 'PaymentMethod'">PaymentMethod</a>
-                <a href="javascript:;" @click="paymentComponent = 'ReviewOrder'">ReviewOrder</a>
+                <a href="javascript:;" @click="paymentComponent = 'ShippingAddress'">Shipping Address </a> 
+                <a href="javascript:;" @click="paymentComponent = 'PaymentMethod'">Payment Method </a> 
+                <a href="javascript:;" @click="paymentComponent = 'ReviewOrder'">Review Order</a>
                 <h3><strong>{{headingSteps}}</strong></h3>
                 <article>
                     <div>
@@ -46,10 +46,32 @@
                     </div>
                     <Subtotal/>
                 </article>
-
-                
             </div>
         </section>
+        <transition name="fade">
+            <teleport to="#modals">
+                <Modal class="modal u-text-center" @close="showModal = false;" v-if="showModal">
+                    <template #header>
+                    </template>
+                    <template #body>
+                        <div class="icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 6L9 7C9 8.65685 10.3431 10 12 10C13.6569 10 15 8.65685 15 7V6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.6113 3H8.38836C6.433 3 4.76424 4.41365 4.44278 6.3424L2.77612 16.3424C2.36976 18.7805 4.24994 21 6.72169 21H17.278C19.7498 21 21.6299 18.7805 21.2236 16.3424L19.5569 6.3424C19.2355 4.41365 17.5667 3 15.6113 3Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg> 
+                        </div>
+                        <h5 class="mb-"><strong>Your order is confirmed</strong></h5>
+                        <p>Thanks for shopping! <br>
+                        your order hasn’t shipped yet, <br>
+                        but we will send you and email when it done.</p>
+                        <div class="button-wrapper o-flex o-flex--column">
+                            <button class="button button--primary">View Order</button>
+                            <button @click="showModal = false;" class="button button--primary-border">Back to Home</button>
+                        </div>
+                    </template>
+                </Modal>
+            </teleport>
+        </transition>
     </main>
 </template>
 <script>
@@ -57,15 +79,17 @@ import ShippingAddress from '../../components/payment-process/ShippingAddress.vu
 import PaymentMethod from '../../components/payment-process/PaymentMethod.vue'
 import ReviewOrder from '../../components/payment-process/ReviewOrder.vue'
 import Subtotal from '../../components/Subtotal.vue'
+import Modal from '../../components/Modal.vue'
 
 export default {
     name:"PaymentSteps",
     components: {
-        ShippingAddress, PaymentMethod, ReviewOrder, Subtotal
+        ShippingAddress, PaymentMethod, ReviewOrder, Subtotal, Modal
     },
     data() {
         return {
-            paymentComponent: "ShippingAddress",
+            paymentComponent: "ReviewOrder",
+            showModal:false,
         }
     },
     computed: {
@@ -191,4 +215,52 @@ export default {
         gap: 80px;
         align-items: start;
     }
+
+    .modal {
+
+        .icon-wrapper {
+            width: 64px;
+            height: 64px; 
+            border-radius: 50%;
+            background-color: #088395;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 50px;
+            margin-bottom: 40px;
+    
+            &:before {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 86px;
+                height: 86px; 
+                border-radius: 50%;
+                background-color: rgba(8, 131, 149, 0.10);
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 108px;
+                height: 108px;  
+                border-radius: 50%;
+                background-color: rgba(8, 131, 149, 0.05);
+            }
+        }
+
+        p {
+            margin-bottom: 30px;
+        }
+
+        .button-wrapper {
+            gap: 10px;
+        }
+    }
+
 </style>
