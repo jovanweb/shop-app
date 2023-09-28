@@ -61,6 +61,33 @@
   }
 }
 
+.button--primary-border {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  padding: 0 20px;
+  color: #088395;
+  font-size: $base-font-size;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid #088395;
+  background-color: #fff;
+  height: 56px;
+
+  &:not(:disabled) {
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: #fff;
+      background-color: #088395;
+      border-color: #088395;
+
+    }
+  }
+}
+
 .button--secondary {
   display: inline-flex;
   align-items: center;
