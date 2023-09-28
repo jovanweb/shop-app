@@ -65,7 +65,7 @@ export default {
     },
     data() {
         return {
-            paymentComponent: "ShippingAddress",
+            paymentComponent: "PaymentMethod",
         }
     },
     computed: {

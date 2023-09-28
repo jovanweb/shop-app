@@ -1,5 +1,6 @@
 <template>
-    <div class="checkbox" :class="'checkbox--'+ color">
+    <!-- <div class="checkbox" :class="'checkbox--'+ color, style === 'radio'?'checkbox--radio':''"> -->
+    <div class="checkbox" :class="{['checkbox--' + color] :color,'checkbox--radio': style === 'radio'}">
         <input :type="type" :id="nameId" :checked="checked" :name="radioName">
         <label :for="nameId">
             <span>
@@ -36,6 +37,10 @@ export default {
         },
         checked: {
             type: Boolean,
+            required: false,
+        },
+        style: {
+            type: String,
             required: false,
         }
     }
@@ -132,6 +137,51 @@ export default {
             span, input:checked + label span {
                 background-color: #E1D353;
                 border-color: #E1D353;
+            }
+        }
+
+        &.checkbox--radio {
+            label {
+                span {
+                    border-radius: 50%;
+                    position: relative;
+
+
+                    &:before {
+                        position: absolute;
+                        left: 2px;
+                        top: 2px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background-color: #088395;
+                        transition: all .3s ease;
+                        visibility: hidden;
+                        opacity: 0;
+                        content:"";
+                    }
+
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+
+            input:checked + label {
+                span {
+                    background-color: white;
+                    &:before {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+            }
+
+
+            p {
+                font-size: 20px; 
+                font-weight: 700;
+                line-height: 24px;
             }
         }
     }
