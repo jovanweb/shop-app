@@ -102,10 +102,6 @@
         align-items: start;
     }
 
-    .table {
-
-    }
-
     .flag {
         display: flex;
         gap: 10px;
