@@ -93,7 +93,6 @@
                         </ul>
                     </div>
                 </article>
-
                 <Tabs class="mb++">
                     <template v-slot:header>
                         <a href="javascript:;" class="tab-link" :class="{'active':tabComponent === 'Description'}" @click="tabComponent = 'Description'">Description</a>

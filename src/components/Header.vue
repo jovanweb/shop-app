@@ -21,9 +21,9 @@
           <svg width="24" height="24" fill="none"><path d="M11 20.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM20 20.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" stroke="#28303F" stroke-width="1.5"/><path d="M6 4h12a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4V4Zm0 0a2 2 0 0 0-2-2H2m4 6h15.5" stroke="#28303F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
 		  <span>2</span>
         </a>
-        <a href="#" class="button button--primary">
+        <router-link to="/login" class="button button--primary">
 			Login
-        </a>
+        </router-link>
       </nav>
     </div>
   </header>
