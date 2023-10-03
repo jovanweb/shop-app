@@ -54,5 +54,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    
+    ul {
+        li {
+            padding: 20px 0;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid rgba(163, 170, 171, 0.20);
+            }
+        }
+    }
 </style>
