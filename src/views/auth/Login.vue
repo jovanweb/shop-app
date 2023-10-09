@@ -27,6 +27,7 @@
 <script>
 import Checkbox from "../../components/Checkbox.vue"
 import { loadAuthenticatedUser } from "@/service/auth";
+import toastr from "toastr";
 
 export default {
     name: "Login",
@@ -43,7 +44,16 @@ export default {
     methods: {
         async login() {
             this.working = true
-            await loadAuthenticatedUser(this.email,this.password)
+
+            try {
+                await loadAuthenticatedUser(this.email,this.password)
+                await this.$router.push('/')
+                toastr.success('Success')
+                this.working = false
+            } catch (e) {
+                toastr.error('Error')
+            }
+
         }
     }
 }

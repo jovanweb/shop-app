@@ -1,20 +1,27 @@
-import { user } from "@/api/auth";
+import store from "@/store";
+// import { user } from "@/api/auth";
 
 export const loadAuthenticatedUser = async (email, password) => {
-    try {
+    const userData = {
+        name: 'Pera Peric',
+        email: 'peraperic@gmail.com',
+        password: 'nesto',
+    }
 
-        console.log(email, password)
-        const { data } = await user(email, password)
-        console.log(data)
+    if(email === userData.email && password === userData.password) {
+        console.log(email)
+        console.log(password)
+        let data = {
+            userData,
+            token: "4f2d4saf4d5sav4dfsav41dfsav4fdsvf9dsvf"
+        }
 
+        await store.dispatch('auth/setLoggedUser', data)
 
-    } catch (e) {
-        console.log('Error loading authenticated user', e)
+        return
+    }else {
+        console.log("nije")
+
+        return false
     }
 }
-
-// export const setAuthenticatedUser = async(user) => {
-
-//     await store.dispatch('auth/setLoggedUser', {user: user, token: localStorage.getItem('auth_token')})
-
-// }

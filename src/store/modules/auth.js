@@ -3,11 +3,10 @@ export default {
     state: {
         auth: {
             user: {
-                name: "Pera Peric",
-                email: "peraperic@gmail.com",
-                avatar: "https://ionicframework.com/docs/img/demos/avatar.svg",
+                name: "",
+                email: "",
                 id: 0,
-                password: "Test123"
+                password: ""
             },
             token: null
 
@@ -37,8 +36,9 @@ export default {
     },
     actions: {
         setLoggedUser(context, payload) {
-            context.commit('setUser', payload.user)
+            context.commit('setUser', payload.userData)
             context.commit('setToken', payload.token)
+            console.log(payload)
         },
     },
     getters: {
