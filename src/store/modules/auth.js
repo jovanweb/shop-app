@@ -1,21 +1,17 @@
 export default {
     namespaced: true,
     state: {
-        auth: {
-            user: {
-                name: "",
-                email: "",
-                id: 0,
-                password: ""
-            },
-            token: null
-
+       auth: {
+            user: {},
+            token: null,
+            loggedin: false
         },
     },
 
     mutations: {
         setUser(state, user) {
-            state.auth.user = user
+            const { token, ...rest} = user
+            state.auth.user = rest
         },
 
         setToken(state, token) {
@@ -25,6 +21,7 @@ export default {
             if(token) {
 
                 localStorage.setItem('auth_token', token)
+                state.auth.loggedin = true
 
             } else {
 
@@ -36,9 +33,9 @@ export default {
     },
     actions: {
         setLoggedUser(context, payload) {
-            context.commit('setUser', payload.userData)
+            context.commit('setUser', payload)
             context.commit('setToken', payload.token)
-            console.log(payload)
+            console.log("payload",payload)
         },
     },
     getters: {

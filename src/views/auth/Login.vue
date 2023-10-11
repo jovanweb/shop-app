@@ -17,7 +17,7 @@
             <Checkbox :text="'Remember Me'" :nameId="'remember-me'"/>
             <a href="javascript:;">Forgot Password?</a>
         </div>
-        <button class="button button--primary w-100" @click="login">Login <span class="loader" v-if="working"></span></button>
+        <button class="button button--primary w-100" @click="onSubmit">Login <span class="loader" v-if="working"></span></button>
 
         <!-- <div class="u-text-center">
             <a href="javascript:;">Register here...</a>
@@ -26,8 +26,9 @@
 </template>
 <script>
 import Checkbox from "../../components/Checkbox.vue"
-import { loadAuthenticatedUser } from "@/service/auth";
+import { login } from '@/api/auth'
 import toastr from "toastr";
+import store from "@/store";
 
 export default {
     name: "Login",
@@ -42,19 +43,26 @@ export default {
         Checkbox
     },
     methods: {
-        async login() {
+        async onSubmit() {
             this.working = true
-
-            try {
-                await loadAuthenticatedUser(this.email,this.password)
-                await this.$router.push('/')
-                toastr.success('Success')
-                this.working = false
-            } catch (e) {
-                toastr.error('Error')
+            const dataForm = {
+                username: this.email,
+                password: this.password,
             }
 
-        }
+            try {
+
+                const { data } = await login(dataForm)
+                localStorage.setItem('auth_token', data.token);
+                await store.dispatch('auth/setLoggedUser', data)
+                toastr.success("You logged in")                
+                await this.$router.push('product')
+            } catch (e) {
+                toastr.error(e.response.data.message);
+            }
+
+            this.working = false
+        },
     }
 }
 </script>

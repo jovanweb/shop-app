@@ -1,20 +1,5 @@
-let userData = {
-    name: 'Pera Peric',
-    email: 'peraperic@gmail.com',
-    password: 'nesto',
+import axios from "axios";
+
+export const login = (data) => {
+    return axios.post('https://dummyjson.com/auth/login', data)
 }
-
-export const user = (email, password) => {
-
-    if(email === userData.email && password === userData.password) {
-        return {
-            data: {
-                userData,
-                token: "4f2d4saf4d5sav4dfsav41dfsav4fdsvf9dsvf"
-            }
-        }
-    }else {
-        console.log("error")
-    }
-}
-
