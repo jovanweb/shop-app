@@ -1,7 +1,7 @@
 <template>
     <div class="single-product-wrapper">
-        <div class="img-wrapper">
-            <img src="../assets/images/chair.png" alt="">
+        <div class="img-wrapper" :style="'background-image:url('+ data.thumbnail +');'">
+            <!-- <img :src="" :alt="data.title"> -->
             <ul class="action-list">
                 <li>
                     <a href="javascript:;">
@@ -21,15 +21,21 @@
             </ul>
         </div>
         <router-link to="/single_product" class="u-text-decoration-none">
-            <p class="mb0">ARFICAL MELTS</p>
-            <p class="mb0"><strong>Poang Armchair</strong></p>
-            <p class="mb0">$250.00</p>
+            <p class="mb0">{{data.title}}</p>
+            <p class="mb0"><strong>{{data.description}}</strong></p>
+            <p class="mb0">${{data.price}}</p>
         </router-link>
     </div>
 </template>
 <script>
 export default {
-    
+    name: "SingleProductType2",
+    props: {
+        data: {
+            type: Object,
+            required: true,
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -46,6 +52,9 @@ export default {
             aspect-ratio: 1 / 1.2;
             position: relative;
             border: 1px solid rgba(20, 28, 29, 0.10);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
 
             &:hover {
                 background-color: rgba(163, 170, 171, 0.10);

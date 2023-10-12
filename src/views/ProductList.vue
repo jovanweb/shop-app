@@ -3,6 +3,8 @@
     <section class="products">
       <div class="o-container">
         <Breadcrumb/>
+        <!-- <a href="javascript:;" @click="nesto()">Next</a> -->
+
         <article>
           <aside class="aside">
             <AsideAccordion>
@@ -106,25 +108,12 @@
             </AsideAccordion>
           </aside>
           <div class="product-list">
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
-            <SingleProductType2/>
+            <SingleProductType2 v-for="product in products" :key="product.id" :data="product"/>
           </div>
         </article>
+
         <div class="u-text-right">
-          <Pagination/>
+          <Pagination v-if="params" :params="params"/>
         </div>
       </div>
     </section>
@@ -137,10 +126,51 @@
   import Breadcrumb from "../components/Breadcrumb.vue"
   import SingleProductType2 from "../components/SingleProductType2.vue"
   import Pagination from "../components/Pagination.vue"
+  import {allProducts, paginationProduct} from "@/api/products"
+  import toastr from "toastr";
 
   export default {
-      name:"ProductList",
-      components: {AsideAccordion, Checkbox, Breadcrumb, SingleProductType2, Pagination}
+    name:"ProductList",
+    components: {AsideAccordion, Checkbox, Breadcrumb, SingleProductType2, Pagination},
+    data() {
+      return {
+        products: null,
+        params: null,
+      }
+    },
+
+    methods: {
+      async getProducts() {
+        
+        try {
+            const { data } = await allProducts()
+            // console.log(data)
+            const { products, ...rest} = data
+            console.log(rest)
+            this.params = rest;
+            this.products = data.products;
+        } catch (e) {
+          
+            toastr.error(e.response.data.message);
+        }
+      },
+
+      async getPage() {
+
+        try {
+            const { data } = await paginationProduct()
+
+            console.log(data)
+        } catch (e) {
+            toastr.error("No data");
+        }
+        
+
+      },
+    },
+    mounted() {
+      this.getProducts()
+    }
   }
 </script>
 
