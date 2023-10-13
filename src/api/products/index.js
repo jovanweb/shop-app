@@ -4,6 +4,6 @@ export const allProducts = () => {
     return axios.get('https://dummyjson.com/products')
 }
 
-export const paginationProduct = () => {
-    return axios.get('https://dummyjson.com/products/?skip=20&limit=30')
+export const paginationProduct = (skip) => {
+    return axios.get('https://dummyjson.com/products/?skip=' + skip + '&limit=30')
 }

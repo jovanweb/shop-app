@@ -1,44 +1,43 @@
 export default {
     namespaced: true,
     state: {
+        currentPage:1,
         product: {
             
         }
     },
 
     mutations: {
-        setUser(state, user) {
-            const { token, ...rest} = user
-            state.auth.user = rest
+        setPage(state, currentPage) {
+            
+            state.currentPage = currentPage
         },
 
-        setToken(state, token) {
+        // setToken(state, token) {
 
-            state.auth.token = token
+        //     state.auth.token = token
 
-            if(token) {
+        //     if(token) {
 
-                localStorage.setItem('auth_token', token)
-                state.auth.loggedin = true
+        //         localStorage.setItem('auth_token', token)
+        //         state.auth.loggedin = true
 
-            } else {
+        //     } else {
 
-                localStorage.removeItem('auth_token')
+        //         localStorage.removeItem('auth_token')
 
-            }
+        //     }
 
-        },
+        // },
     },
     actions: {
-        setLoggedUser(context, payload) {
-            context.commit('setUser', payload)
-            context.commit('setToken', payload.token)
-            console.log("payload",payload)
+        setPage(context, payload) {
+            context.commit('setPage', payload)
         },
     },
     getters: {
-        auth(state) {
-            return state.auth
+        currentPage(state) {
+            return state.currentPage
         },
     },
 }

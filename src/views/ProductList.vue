@@ -5,6 +5,11 @@
         <Breadcrumb/>
         <!-- <a href="javascript:;" @click="nesto()">Next</a> -->
 
+        {{$route.params.page}}
+        <div class="u-text-right">
+          <Pagination v-if="params" :pageParams="params" @setPage="getPage"/>
+        </div>
+
         <article>
           <aside class="aside">
             <AsideAccordion>
@@ -112,9 +117,7 @@
           </div>
         </article>
 
-        <div class="u-text-right">
-          <Pagination v-if="params" :params="params"/>
-        </div>
+        
       </div>
     </section>
   </main>
@@ -128,6 +131,7 @@
   import Pagination from "../components/Pagination.vue"
   import {allProducts, paginationProduct} from "@/api/products"
   import toastr from "toastr";
+  import {  mapGetters } from "vuex";
 
   export default {
     name:"ProductList",
@@ -136,7 +140,15 @@
       return {
         products: null,
         params: null,
+        currentPageNumb: null,
       }
+    },
+
+    computed: {
+      ...mapGetters({
+            pageNumber: 'product/currentPage',
+      }),
+
     },
 
     methods: {
@@ -144,32 +156,33 @@
         
         try {
             const { data } = await allProducts()
-            // console.log(data)
             const { products, ...rest} = data
-            console.log(rest)
             this.params = rest;
             this.products = data.products;
         } catch (e) {
-          
             toastr.error(e.response.data.message);
         }
       },
 
-      async getPage() {
-
+      async getPage(page) {
+        this.currentPageNumb = page;
+        let skip = (page - 1) * this.params.limit
         try {
-            const { data } = await paginationProduct()
-
-            console.log(data)
+            const { data } = await paginationProduct(skip)
+            this.products = data.products
         } catch (e) {
             toastr.error("No data");
         }
-        
-
       },
     },
     mounted() {
-      this.getProducts()
+      this.getProducts();
+      // this.getPage();
+      // const url = new URL('/product?page=1', window.location.href);
+      // const pageNumber = url.searchParams.get('page');
+      // console.log('Page Number:', pageNumber);
+      
+
     }
   }
 </script>
