@@ -19,13 +19,13 @@ export default {
 
   data() {
     return {
-      number: 0,
+      number: 1,
     };
   },
 
   methods: {
     decrement() {
-      this.number = Math.max(0, this.number - 1);
+      this.number = Math.max(1, this.number - 1);
     },
 
     increment() {

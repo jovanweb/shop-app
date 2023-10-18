@@ -35,12 +35,8 @@
 
                         <div class="o-flex o-flex--center mb+">
                             <InputNumber class="mr" :max="singleProduct.stock"/>
-                            <button class="button button--primary o-flex--1 o-flex--justify-center mr">Add to Cart</button>
-                            <a href="javascript:;" class="favorite" @click="favorite(singleProduct.id)">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.765 4.70229L12 5.52422L11.235 4.70229C9.12233 2.43257 5.69709 2.43257 3.58447 4.70229C1.47184 6.972 1.47184 10.6519 3.58447 12.9217L10.4699 20.3191C11.315 21.227 12.685 21.227 13.5301 20.3191L20.4155 12.9217C22.5282 10.6519 22.5282 6.972 20.4155 4.70229C18.3029 2.43257 14.8777 2.43257 12.765 4.70229Z" stroke="#141C1D" stroke-width="1.5" stroke-linejoin="round"/>
-                                </svg> 
-                            </a>
+                            <button class="button button--primary o-flex--1 o-flex--justify-center mr" @click="triggerCartAside">Add to Cart</button>
+                            <FavoriteButton :active="favoriteProduct" @like="like"/>
                         </div>
                         <p class="text-medium mb-"><strong>Share</strong></p>
                         <ul class="share-list">
@@ -78,11 +74,10 @@
                         <component v-if="singleProduct" :data="singleProduct" :reviews="reviews" :is="tabComponent"></component>
                     </template>
                 </Tabs>
-
-                <div v-if="relatedProducts">
+                <div v-if="favoriteProd.length">
                     <h3><strong>Related Products</strong></h3>
                     <div class="grid">
-                        <SingleProductType2 v-for="(product, index) in relatedProducts" :key="index" :data="product"/>
+                        <SingleProductType2 v-for="(product, index) in favoriteProd" :key="index" :data="product"/>
                     </div>
                 </div>
             </div>
@@ -94,6 +89,7 @@ import Breadcrumb from "../components/Breadcrumb.vue"
 import Checkbox from "../components/Checkbox.vue"
 import InputNumber from "../components/InputNumber.vue"
 import RatingStars from "../components/RatingStars.vue"
+import FavoriteButton from "../components/FavoriteButton.vue"
 import Tabs from "../components/tabs/Tabs.vue"
 import Description from "../components/tabs/Description.vue"
 import Reviews from "../components/tabs/Reviews.vue"
@@ -101,19 +97,22 @@ import SingleProductType2 from "../components/SingleProductType2.vue"
 import { singleProduct } from "@/api/products"
 import { comments } from "@/api/reviews"
 import toastr from "toastr";
+import store from "@/store";
+import { mapGetters } from "vuex";
+
 
 export default {
     name: "SingleProduct",
-    components: {Breadcrumb, Checkbox, InputNumber, Tabs, Description, Reviews, SingleProductType2, RatingStars},
+    components: {Breadcrumb, Checkbox, InputNumber, Tabs, Description, Reviews, SingleProductType2, RatingStars, FavoriteButton},
     data() {
         return {
             tabComponent: "Description",
             singleProduct: null,
-            relatedProducts: null,
             reviews: null
         }
     },
     methods: {
+
         async getProduct() {
             try {
                 const {data} = await singleProduct(this.productId)
@@ -134,13 +133,27 @@ export default {
             }
         },
 
-        favorite(id) {
-            console.log(id)
+        like(active) {
+            if(active) {
+                store.dispatch('product/addFavorite', this.singleProduct)
+            }else {
+                store.dispatch('product/removeFavorite', this.singleProduct)
+            }
+        },
+
+        triggerCartAside() {
+            store.dispatch('cart/setAside', true)
         }
-        
     },
 
     computed: {
+
+        ...mapGetters({
+            favoriteProd: 'product/favoriteProduct',
+        }),
+        favoriteProduct() {
+            return this.favoriteProd.some(e => e.id === this.singleProduct.id)
+        },
         productId() {
             return this.$route.params.id;
         },
@@ -202,20 +215,6 @@ export default {
 
         img {
             width: 60%;
-        }
-    }
-
-    .favorite {
-        display: flex;
-        width: 56px;
-        height: 56px;
-        justify-content: center;
-        align-items: center; 
-        background-color: rgba(163, 170, 171, 0.10);
-        border-radius: 10px;
-
-        &:hover {
-            background-color: rgba(163, 170, 171, 0.20);
         }
     }
 

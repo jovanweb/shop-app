@@ -4,16 +4,13 @@
       <div class="o-container">
         <div class="o-flex o-flex--start o-flex--justify"> 
           <Breadcrumb/>
-          <div class="u-text-right o-flex o-flex--center">
-            <Pagination v-if="params" :pageParams="params" :limit="filterItems" :pageNumb="currentPageNumb" @setPage="getAllProducts"/>
-            <div class="input-select ml">
-              <select name="" v-model="filterItems" class="input input--primary input--select" @change="getAllProducts(currentPageNumb)">
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-              </select>
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" viewBox="0 0 384 512"><path d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/></svg>
-            </div>
+          <div class="input-select">
+            <select name="" v-model="filterItems" class="input input--primary input--select" @change="getAllProducts(currentPageNumb)">
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" viewBox="0 0 384 512"><path d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/></svg>
           </div>
         </div>
         <article>
@@ -39,6 +36,9 @@
             <SingleProductType2 v-for="product in products" :key="product.id" :data="product"/>
           </div>
         </article>
+        <div class="u-text-right">
+          <Pagination v-if="params" :pageParams="params" :limit="filterItems" :pageNumb="currentPageNumb" @setPage="getAllProducts"/>
+        </div>
       </div>
     </section>
   </main>

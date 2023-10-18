@@ -19,7 +19,6 @@ export default {
                 to: record.path,
                 label: record.meta && record.meta.breadcrumb ? record.meta.breadcrumb : record.name,
             }));
-            console.log(crumbs)
             return crumbs;
         },
     },

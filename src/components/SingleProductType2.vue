@@ -21,8 +21,8 @@
             </ul>
         </div>
         <router-link :to="{ name: 'SingleProduct', params: { id: data.id } }" class="u-text-decoration-none">
-            <p class="mb0">{{data.title}}</p>
-            <p class="mb0"><strong>{{data.description}}</strong></p>
+            <p class="mb0">{{data.brand}}</p>
+            <p class="mb0"><strong>{{data.title}}</strong></p>
             <p class="mb0">${{data.price}}</p>
         </router-link>
     </div>
@@ -52,7 +52,7 @@ export default {
             aspect-ratio: 1 / 1.2;
             position: relative;
             border: 1px solid rgba(20, 28, 29, 0.10);
-            background-size: cover;
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: 50% 50%;
 
