@@ -5,7 +5,13 @@
 </template>
 <script>
 export default {
-    name: "AdditionalInformation"
+    name: "AdditionalInformation",
+    props: {
+        data: {
+            type: Object,
+            required: false
+        }
+    }
 }
 </script>
 <style lang="">

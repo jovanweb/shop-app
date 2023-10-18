@@ -17,7 +17,7 @@
                         <h4 class="mb-"><strong>{{singleProduct.brand}}</strong></h4>
                         <div class="o-flex o-flex--center mb" v-if="singleProduct.rating">
                             <RatingStars class="mr-" :rating="3.5"/>
-                            <p class="mb0">{{singleProduct.rating}} (121 Reviews)</p>
+                            <p class="mb0">{{singleProduct.rating}} ({{reviews?.length}} Reviews)</p>
                         </div>
                         <p class="h6">${{singleProduct.price}}</p>
                         <p>{{singleProduct.description}}</p>
@@ -36,7 +36,7 @@
                         <div class="o-flex o-flex--center mb+">
                             <InputNumber class="mr" :max="singleProduct.stock"/>
                             <button class="button button--primary o-flex--1 o-flex--justify-center mr">Add to Cart</button>
-                            <a href="javascript:;" class="favorite">
+                            <a href="javascript:;" class="favorite" @click="favorite(singleProduct.id)">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.765 4.70229L12 5.52422L11.235 4.70229C9.12233 2.43257 5.69709 2.43257 3.58447 4.70229C1.47184 6.972 1.47184 10.6519 3.58447 12.9217L10.4699 20.3191C11.315 21.227 12.685 21.227 13.5301 20.3191L20.4155 12.9217C22.5282 10.6519 22.5282 6.972 20.4155 4.70229C18.3029 2.43257 14.8777 2.43257 12.765 4.70229Z" stroke="#141C1D" stroke-width="1.5" stroke-linejoin="round"/>
                                 </svg> 
@@ -71,11 +71,11 @@
                 <Tabs class="mb++">
                     <template v-slot:header>
                         <a href="javascript:;" class="tab-link" :class="{'active':tabComponent === 'Description'}" @click="tabComponent = 'Description'">Description</a>
-                        <a href="javascript:;" class="tab-link" :class="{'active':tabComponent === 'AdditionalInformation'}" @click="tabComponent = 'AdditionalInformation'">Additional Information</a>
+                        <!-- <a href="javascript:;" class="tab-link" :class="{'active':tabComponent === 'AdditionalInformation'}" @click="tabComponent = 'AdditionalInformation'">Additional Information</a> -->
                         <a href="javascript:;" class="tab-link" :class="{'active':tabComponent === 'Reviews'}" @click="tabComponent = 'Reviews'">Reviews</a>
                     </template>
                     <template v-slot:body>
-                        <component :is="tabComponent"></component>
+                        <component v-if="singleProduct" :data="singleProduct" :reviews="reviews" :is="tabComponent"></component>
                     </template>
                 </Tabs>
 
@@ -96,19 +96,21 @@ import InputNumber from "../components/InputNumber.vue"
 import RatingStars from "../components/RatingStars.vue"
 import Tabs from "../components/tabs/Tabs.vue"
 import Description from "../components/tabs/Description.vue"
-import AdditionalInformation from "../components/tabs/AdditionalInformation.vue"
 import Reviews from "../components/tabs/Reviews.vue"
 import SingleProductType2 from "../components/SingleProductType2.vue"
 import { singleProduct } from "@/api/products"
+import { comments } from "@/api/reviews"
+import toastr from "toastr";
 
 export default {
     name: "SingleProduct",
-    components: {Breadcrumb, Checkbox, InputNumber, Tabs, Description, AdditionalInformation, Reviews, SingleProductType2, RatingStars},
+    components: {Breadcrumb, Checkbox, InputNumber, Tabs, Description, Reviews, SingleProductType2, RatingStars},
     data() {
         return {
             tabComponent: "Description",
             singleProduct: null,
             relatedProducts: null,
+            reviews: null
         }
     },
     methods: {
@@ -121,6 +123,21 @@ export default {
                 toastr.error(e.response.data.message);
             }
         }, 
+
+        async getReviews() {
+            try {
+                const {data} = await comments();
+                this.reviews = data.comments;
+            }catch (e) {
+                console.log(e)
+                toastr.error(e.response.data.message);
+            }
+        },
+
+        favorite(id) {
+            console.log(id)
+        }
+        
     },
 
     computed: {
@@ -130,6 +147,7 @@ export default {
     },
     mounted() {
         this.getProduct()
+        this.getReviews()
     }
 }
 </script>
@@ -161,7 +179,7 @@ export default {
         justify-content: center;
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        background-size: cover;
+        background-size: contain;
         
         img {
             width: 60%;
