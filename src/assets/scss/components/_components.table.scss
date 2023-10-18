@@ -1,0 +1,20 @@
+
+.table {
+    width: 100%;
+    display: table;
+
+    td,th {
+        text-align: left;
+        font-size: 16px;
+        line-height: 30px;
+        vertical-align: middle;
+        border-bottom: 1px solid rgba(163, 170, 171, 0.20);
+        padding: 20px 10px;
+    }
+
+
+    a {
+        display: flex;
+        align-content: center;
+    }
+}

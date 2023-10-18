@@ -1,5 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import PagesLayout from '../../src/layout/PagesLayout.vue'
+import AuthLayout from '../../src/layout/AuthLayout.vue'
+import Homepage from '../views/Homepage.vue'
+import ProductList from '../views/ProductList.vue'
+import SingleProduct from '../views/SingleProduct.vue'
+import Checkout from '../views/payment-process/Checkout.vue'
+import PaymentSteps from '../views/payment-process/PaymentSteps.vue'
+import Login from '../views/auth/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,16 +14,58 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: Homepage,
+      meta: { 
+        layout: PagesLayout,
+        breadcrumb: 'Home',
+      }
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      meta: { 
+        layout: AuthLayout,
+        // pageName: 'Home',
+      }
+    },
+    {
+      path: '/product',
+      name: 'product',
+      component: ProductList,
+      meta: { 
+        layout: PagesLayout,
+        breadcrumb: 'Products',
+      },
+    },
+    {
+      path: '/product/:id',
+      name: 'SingleProduct',
+      component: SingleProduct,
+      meta: { 
+        layout: PagesLayout,
+        breadcrumb: 'Single Product',
+      }
+    },
+    {
+      path: '/checkout',
+      name: 'Checkout',
+      component: Checkout,
+      meta: { 
+        layout: PagesLayout,
+        // pageName: 'Home',
+      }
+    },
+    {
+      path: '/payment_steps',
+      name: 'PaymentSteps',
+      component: PaymentSteps,
+      meta: { 
+        layout: PagesLayout,
+        // pageName: 'Home',
+      }
+    },
+    
   ]
 })
 

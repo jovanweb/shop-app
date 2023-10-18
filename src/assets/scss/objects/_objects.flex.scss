@@ -1,0 +1,81 @@
+/*------------------------------------*\
+    #FLEXBOX
+\*------------------------------------*/
+
+.o-flex {
+	display: flex;
+}
+
+.o-flex--column  {
+	flex-direction: column;
+}
+
+.o-flex--wrap    {
+	flex-wrap: wrap;
+}
+
+.o-flex--no-wrap {
+	flex-wrap: nowrap;
+}
+
+.o-flex--center   {
+	align-items: center;
+}
+
+.o-flex--baseline {
+	align-items: baseline;
+}
+
+.o-flex--stretch  {
+	align-items: stretch;
+}
+
+.o-flex--start    {
+	align-items: flex-start;
+}
+
+.o-flex--end      {
+	align-items: flex-end;
+}
+
+.o-flex--justify  {
+	justify-content: space-between;
+}
+
+.o-flex--justify-center  {
+	justify-content: center;
+}
+
+.o-flex--justify-around  {
+	justify-content: space-around;
+}
+
+.o-flex--right  {
+	justify-content: flex-end;
+}
+
+.o-flex--auto {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.o-flex--1 {
+	flex: 1;
+  }
+
+.o-flex--grow {
+	flex: 1 0 auto;
+}
+
+.o-flex--none {
+	flex: none;
+}
+
+.o-flex--first {
+	order: -1;
+}
+
+.o-flex--last  {
+	order: 99999;
+}
