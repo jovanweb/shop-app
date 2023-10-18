@@ -17,7 +17,7 @@ const router = createRouter({
       component: Homepage,
       meta: { 
         layout: PagesLayout,
-        // pageName: 'Home',
+        breadcrumb: 'Home',
       }
     },
     {
@@ -35,16 +35,16 @@ const router = createRouter({
       component: ProductList,
       meta: { 
         layout: PagesLayout,
-        // pageName: 'Home',
-      }
+        breadcrumb: 'Products',
+      },
     },
     {
-      path: '/single_product',
+      path: '/product/:id',
       name: 'SingleProduct',
       component: SingleProduct,
       meta: { 
         layout: PagesLayout,
-        // pageName: 'Home',
+        breadcrumb: 'Single Product',
       }
     },
     {

@@ -4,62 +4,37 @@
             <div class="o-container">
                 <Breadcrumb/>
                 <article>
-                    <div class="product-wrapper">
-                        <div class="big-image-wrapper">
-                            <img src="../assets/images/chair.png" alt="">
-                        </div>
+                    <div class="product-wrapper" v-if="singleProduct">
+                        <div class="big-image-wrapper" :style="'background-image: url(' + singleProduct.thumbnail + ');'"></div>
                         <div class="small-image-wrapper">
-                            <div class="img-item">
-                                <img src="../assets/images/chair.png" alt="">
-                            </div>
-                            <div class="img-item">
-                                <img src="../assets/images/chair.png" alt="">
-                            </div>
-                            <div class="img-item">
-                                <img src="../assets/images/chair.png" alt="">
-                            </div>
-                            <div class="img-item">
-                                <img src="../assets/images/chair.png" alt="">
+                            <div class="img-item" v-for="(image, index) in singleProduct.images" :key="index">
+                                <img :src="image" alt="">
                             </div>
                         </div>
                     </div>
-                    <div class="product-info">
-                        <h6 class="mb-">PARKER CHAIR</h6>
-                        <h4 class="mb-"><strong>Modern Sofa Chair</strong></h4>
-                        <div class="o-flex o-flex--center">
-                            <ul class="o-flex o-flex--center mr-">
-                                <li>
-                                <svg width="20" height="20" fill="none"><path d="m11.442 2.925 1.466 2.934c.2.408.734.8 1.184.875l2.658.441c1.7.284 2.1 1.517.875 2.734l-2.067 2.066c-.35.35-.541 1.025-.433 1.508l.592 2.559c.466 2.025-.609 2.808-2.4 1.75l-2.492-1.475c-.45-.267-1.192-.267-1.65 0l-2.492 1.475c-1.783 1.058-2.866.266-2.4-1.75l.592-2.559c.108-.483-.083-1.158-.433-1.508L2.375 9.91c-1.217-1.217-.825-2.45.875-2.734l2.658-.441c.442-.075.975-.467 1.175-.875L8.55 2.925c.8-1.591 2.1-1.591 2.892 0Z" fill="#FFC560"/></svg>
-                                </li>
-                                <li>
-                                <svg width="20" height="20" fill="none"><path d="m11.442 2.925 1.466 2.934c.2.408.734.8 1.184.875l2.658.441c1.7.284 2.1 1.517.875 2.734l-2.067 2.066c-.35.35-.541 1.025-.433 1.508l.592 2.559c.466 2.025-.609 2.808-2.4 1.75l-2.492-1.475c-.45-.267-1.192-.267-1.65 0l-2.492 1.475c-1.783 1.058-2.866.266-2.4-1.75l.592-2.559c.108-.483-.083-1.158-.433-1.508L2.375 9.91c-1.217-1.217-.825-2.45.875-2.734l2.658-.441c.442-.075.975-.467 1.175-.875L8.55 2.925c.8-1.591 2.1-1.591 2.892 0Z" fill="#FFC560"/></svg>
-                                </li>
-                                <li>
-                                <svg width="20" height="20" fill="none"><path d="m11.442 2.925 1.466 2.934c.2.408.734.8 1.184.875l2.658.441c1.7.284 2.1 1.517.875 2.734l-2.067 2.066c-.35.35-.541 1.025-.433 1.508l.592 2.559c.466 2.025-.609 2.808-2.4 1.75l-2.492-1.475c-.45-.267-1.192-.267-1.65 0l-2.492 1.475c-1.783 1.058-2.866.266-2.4-1.75l.592-2.559c.108-.483-.083-1.158-.433-1.508L2.375 9.91c-1.217-1.217-.825-2.45.875-2.734l2.658-.441c.442-.075.975-.467 1.175-.875L8.55 2.925c.8-1.591 2.1-1.591 2.892 0Z" fill="#FFC560"/></svg>
-                                </li>
-                                <li>
-                                <svg width="20" height="20" fill="none"><path d="m11.442 2.925 1.466 2.934c.2.408.734.8 1.184.875l2.658.441c1.7.284 2.1 1.517.875 2.734l-2.067 2.066c-.35.35-.541 1.025-.433 1.508l.592 2.559c.466 2.025-.609 2.808-2.4 1.75l-2.492-1.475c-.45-.267-1.192-.267-1.65 0l-2.492 1.475c-1.783 1.058-2.866.266-2.4-1.75l.592-2.559c.108-.483-.083-1.158-.433-1.508L2.375 9.91c-1.217-1.217-.825-2.45.875-2.734l2.658-.441c.442-.075.975-.467 1.175-.875L8.55 2.925c.8-1.591 2.1-1.591 2.892 0Z" fill="#FFC560"/></svg>
-                                </li>
-                                <li>
-                                <svg width="20" height="20" fill="none"><path d="m11.442 2.925 1.466 2.934c.2.408.734.8 1.184.875l2.658.441c1.7.284 2.1 1.517.875 2.734l-2.067 2.066c-.35.35-.541 1.025-.433 1.508l.592 2.559c.466 2.025-.609 2.808-2.4 1.75l-2.492-1.475c-.45-.267-1.192-.267-1.65 0l-2.492 1.475c-1.783 1.058-2.866.266-2.4-1.75l.592-2.559c.108-.483-.083-1.158-.433-1.508L2.375 9.91c-1.217-1.217-.825-2.45.875-2.734l2.658-.441c.442-.075.975-.467 1.175-.875L8.55 2.925c.8-1.591 2.1-1.591 2.892 0Z" fill="#FFC560"/></svg>
-                                </li>
-                            </ul>
-                            <p>5.0 (121 Reviews)</p>
+                    <div class="product-info" v-if="singleProduct">
+                        <h6 class="mb-">{{singleProduct.title}}</h6>
+                        <h4 class="mb-"><strong>{{singleProduct.brand}}</strong></h4>
+                        <div class="o-flex o-flex--center mb" v-if="singleProduct.rating">
+                            <RatingStars class="mr-" :rating="3.5"/>
+                            <p class="mb0">{{singleProduct.rating}} (121 Reviews)</p>
                         </div>
-                        <p class="h6">$300.00</p>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.</p>
+                        <p class="h6">${{singleProduct.price}}</p>
+                        <p>{{singleProduct.description}}</p>
 
-                        <p class="text-medium mb-"><strong>Color</strong></p>
+                        <!-- <p class="text-medium mb-"><strong>Color</strong></p>
 
                         <ul class="colors-options o-flex o-flex--center">
                             <li><Checkbox :type="'radio'" :color="'gray'" :nameId="'gray'"/></li>
                             <li><Checkbox :type="'radio'" :color="'orange'" :nameId="'orange'"/></li>
                             <li><Checkbox :type="'radio'" :color="'black'" :nameId="'black'"/></li>
                             <li><Checkbox :type="'radio'" :color="'green'" :nameId="'green'"/></li>
-                        </ul>
+                        </ul> -->
+
+                        <p class="text-medium mb-"><strong>Stock: </strong>{{singleProduct.stock}}</p>
 
                         <div class="o-flex o-flex--center mb+">
-                            <InputNumber class="mr"/>
+                            <InputNumber class="mr" :max="singleProduct.stock"/>
                             <button class="button button--primary o-flex--1 o-flex--justify-center mr">Add to Cart</button>
                             <a href="javascript:;" class="favorite">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,12 +79,11 @@
                     </template>
                 </Tabs>
 
-                <h3><strong>Related Products</strong></h3>
-                <div class="grid">
-                    <SingleProductType2/>
-                    <SingleProductType2/>
-                    <SingleProductType2/>
-                    <SingleProductType2/>
+                <div v-if="relatedProducts">
+                    <h3><strong>Related Products</strong></h3>
+                    <div class="grid">
+                        <SingleProductType2 v-for="(product, index) in relatedProducts" :key="index" :data="product"/>
+                    </div>
                 </div>
             </div>
         </section>
@@ -119,18 +93,43 @@
 import Breadcrumb from "../components/Breadcrumb.vue"
 import Checkbox from "../components/Checkbox.vue"
 import InputNumber from "../components/InputNumber.vue"
+import RatingStars from "../components/RatingStars.vue"
 import Tabs from "../components/tabs/Tabs.vue"
 import Description from "../components/tabs/Description.vue"
 import AdditionalInformation from "../components/tabs/AdditionalInformation.vue"
 import Reviews from "../components/tabs/Reviews.vue"
 import SingleProductType2 from "../components/SingleProductType2.vue"
+import { singleProduct } from "@/api/products"
+
 export default {
     name: "SingleProduct",
-    components: {Breadcrumb, Checkbox, InputNumber, Tabs, Description, AdditionalInformation, Reviews, SingleProductType2},
+    components: {Breadcrumb, Checkbox, InputNumber, Tabs, Description, AdditionalInformation, Reviews, SingleProductType2, RatingStars},
     data() {
         return {
-            tabComponent: "Description"
+            tabComponent: "Description",
+            singleProduct: null,
+            relatedProducts: null,
         }
+    },
+    methods: {
+        async getProduct() {
+            try {
+                const {data} = await singleProduct(this.productId)
+                this.singleProduct = data;
+            } catch (e) {
+                console.log(e)
+                toastr.error(e.response.data.message);
+            }
+        }, 
+    },
+
+    computed: {
+        productId() {
+            return this.$route.params.id;
+        },
+    },
+    mounted() {
+        this.getProduct()
     }
 }
 </script>
@@ -160,6 +159,9 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: cover;
         
         img {
             width: 60%;

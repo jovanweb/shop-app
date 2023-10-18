@@ -1,9 +1,17 @@
 import axios from "axios";
 
-export const allProducts = () => {
-    return axios.get('https://dummyjson.com/products')
+export const allProducts = (query = null) => { 
+    return axios.get(`https://dummyjson.com/products${ query ? ('?' + new URLSearchParams(query).toString()) : ''}`)
 }
 
-export const paginationProduct = (skip) => {
-    return axios.get('https://dummyjson.com/products/?skip=' + skip + '&limit=30')
+export const productCategories = () => {
+    return axios.get('https://dummyjson.com/products/categories')
+}
+
+export const productFilter = (query = null) => {
+    return axios.get(`https://dummyjson.com/products/category/${ query ? query : ''}`)
+}
+
+export const singleProduct = (query = null) => {
+    return axios.get(`https://dummyjson.com/products/${ query ? query : ''}`)
 }

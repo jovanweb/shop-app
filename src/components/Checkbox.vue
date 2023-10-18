@@ -1,5 +1,4 @@
 <template>
-    <!-- <div class="checkbox" :class="'checkbox--'+ color, style === 'radio'?'checkbox--radio':''"> -->
     <div class="checkbox" :class="{['checkbox--' + color] :color,'checkbox--radio': style === 'radio'}">
         <input :type="type" :id="nameId" :checked="checked" :name="radioName">
         <label :for="nameId">

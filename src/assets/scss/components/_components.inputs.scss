@@ -92,3 +92,21 @@
     color: #141C1D;
   }
 }
+
+.input-select {
+  position: relative;
+  min-width: 100px;
+  
+  select {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  svg {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translate(0, -50%);
+    pointer-events: none;
+  }
+}

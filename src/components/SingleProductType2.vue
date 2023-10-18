@@ -20,7 +20,7 @@
                 </li>
             </ul>
         </div>
-        <router-link to="/single_product" class="u-text-decoration-none">
+        <router-link :to="{ name: 'SingleProduct', params: { id: data.id } }" class="u-text-decoration-none">
             <p class="mb0">{{data.title}}</p>
             <p class="mb0"><strong>{{data.description}}</strong></p>
             <p class="mb0">${{data.price}}</p>

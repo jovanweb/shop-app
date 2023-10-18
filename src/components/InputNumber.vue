@@ -1,13 +1,20 @@
 <template>
     <div class="input-number">
-        <a href="javascript:;" class="minus" @click="changeValue('-1')">-</a>
+        <a href="javascript:;" class="minus" @click="changeValue(-1)">-</a>
         <input type="number" class="input" :value="number">
-        <a href="javascript:;"  class="plus" @click="changeValue('1')">+</a>
+        <a href="javascript:;"  class="plus" @click="changeValue(1)">+</a>
     </div>
 </template>
 <script>
 export default {
     name: "InputNumber",
+
+    props: {
+        max: {
+            type: Number,
+            required: false,
+        }
+    },
     data() {
         return {
             number: 0,
@@ -15,8 +22,12 @@ export default {
     },
     methods: {
         changeValue(numb) {
-            this.number += +numb
+            this.number += numb
+            if(this.number > this.max) {
+                this.number = this.max
+            }
             this.number > 0 ? this.number : this.number = 0;
+            console.log(this.number)
         }
     }
 }

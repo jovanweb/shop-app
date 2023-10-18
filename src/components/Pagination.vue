@@ -4,11 +4,8 @@
         <li v-for="(page, index) in calcPages" :key="index"><a @click="pageTrigger(page)" :class="{'is-active' : currentPage === page}" href="javascript:;">{{page}}</a></li>
         <li><a @click="pageTrigger(this.currentPage + 1)"  href="javascript:;" class="arrow-btn"><svg width="24" height="24" fill="none"><path d="m14 16 4-4m0 0-4-4m4 4H6" stroke="#141C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
     </ul>
-
-    {{$route.params.page}}
 </template>
 <script>
-import store from "@/store";
 export default {
     name:"Pagination",
     props: {
@@ -16,42 +13,42 @@ export default {
             type: Object,
             required: true,
         },
+        pageNumb: {
+            type: Number,
+            required: true
+        },
+        limit: {
+            type: String,
+            required: true
+        }
     },
     emits: ['setPage'],
     data() {
         return {
-            currentPage: 1,
-            pages: null,
+            currentPage: null,
         }
     },
     computed: {
         calcPages() {
-            let pages = Math.ceil(this.pageParams.total / this.pageParams.limit)
-            this.pages = pages;
-            return pages
+            return Math.ceil(this.pageParams.total / parseInt(this.limit))
         },
     },
 
     methods: {
         pageTrigger(page) {
-            this.currentPage = page
+            // this.currentPage = page
             if(page > this.calcPages ) {
                 this.currentPage = this.calcPages
-                this.$router.push({name: 'product', query: {page: this.calcPages}})
-                
             } else if (page <= this.calcPages && page > 0) {
-                this.$router.push({name: 'product', query: {page: page}})
+                this.currentPage = page
             } else {
                 this.currentPage = 1
-                this.$router.push({name: 'product', query: {page: this.currentPage}})
             }
-            store.dispatch('product/setPage', this.currentPage)
             this.$emit("setPage", this.currentPage)
         }
     },
-
     mounted() {
-        this.$router.push({name: 'product', query: {page: this.currentPage}})
+        this.currentPage = this.pageNumb
     }
 }   
 </script>
@@ -60,6 +57,7 @@ export default {
         display: inline-flex;
         align-items: center;
         gap: 10px;
+        margin-bottom: 0;
 
         a {
             width: 40px;
