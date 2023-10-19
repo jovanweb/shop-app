@@ -1,9 +1,9 @@
 <template>
-
     <div v-if="!reviews" class="no-data">
         No comments
     </div>
     <div v-else class="review">
+
         <article>
             <h6 class="mb0"><strong>Customer Reviews</strong></h6>
             <ul class="review-list">
@@ -26,6 +26,7 @@
                     </div>
                 </li>
             </ul>
+            <Pagination v-if="params" :pageParams="params" :limit="parseInt(params?.limit) || 10" :pageNumb="1" @setPage="getReviews"/>
         </article>
         <article class="add-review">
             <h6><strong>Add your Review</strong></h6>
@@ -92,7 +93,6 @@
                     </svg> 
                 </a>
             </div>
-
             <form action="">
                 <div class="input-box">
                     <p>Name</p>
@@ -113,14 +113,38 @@
 </template>
 <script>
 import RatingStars from "../RatingStars.vue"
+import Pagination from "../Pagination.vue"
+import { reviews } from "@/api/reviews"
+import toastr from "toastr";
+
 export default {
     name: "Reviews",
-    components: {RatingStars},
-    props: {
-        reviews: {
-            type: Object,
-            required: false
+    components: {RatingStars,Pagination},
+    data() {
+        return {
+            reviews: null,
+            params: null,
+            skipComments: 10,
+            limitNumberComments: 10,
         }
+    },
+    methods: {
+        getAllComments(i) {
+            console.log(i)
+        },
+        async getReviews(page = 1) {
+            try {
+                const {data: {comments, ...rest}} = await reviews({skip: page * (this.skipComments || 0) , limit: 8});
+                this.params = rest
+                this.reviews = comments;
+            }catch (e) {
+                console.log(e)
+                toastr.error(e.response.data.message);
+            }
+        },
+    },
+    mounted() {
+        this.getReviews()
     }
 }
 </script>

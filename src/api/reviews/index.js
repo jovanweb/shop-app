@@ -1,5 +1,6 @@
 import axios from "axios";
 
-export const comments = () => {
-    return axios.get('https://dummyjson.com/comments')
+export const reviews = (query = null) => {
+    console.log("query",query)
+    return axios.get(`https://dummyjson.com/comments${ query ? ('?' + new URLSearchParams(query).toString()) : ''}`)
 }

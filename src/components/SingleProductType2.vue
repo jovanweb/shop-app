@@ -1,6 +1,6 @@
 <template>
     <div class="single-product-wrapper">
-        <div class="img-wrapper" :style="'background-image:url('+ data.thumbnail +');'">
+        <div class="img-wrapper" :style="'background-image:url('+ data?.thumbnail +');'">
             <!-- <img :src="" :alt="data.title"> -->
             <ul class="action-list">
                 <li>

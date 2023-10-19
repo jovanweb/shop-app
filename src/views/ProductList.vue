@@ -27,6 +27,8 @@
                     <li class="o-flex o-flex--center o-flex--justify" v-for="(categoryItem, index) in productsCategories" :key="index">
                       <Checkbox :radioName="'categories'" :type="'radio'" :text="categoryItem" :nameId="categoryItem" @change="filterProducts(categoryItem)"/>
                       <!-- (5) -->
+
+                      <!-- {{productsCategories}} -->
                     </li>
                   </ul>
               </template>
@@ -37,7 +39,7 @@
           </div>
         </article>
         <div class="u-text-right">
-          <Pagination v-if="params" :pageParams="params" :limit="filterItems" :pageNumb="currentPageNumb" @setPage="getAllProducts"/>
+          <Pagination v-if="params" :pageParams="params" :limit="parseInt(filterItems)" :pageNumb="currentPageNumb" @setPage="getAllProducts"/>
         </div>
       </div>
     </section>
@@ -63,8 +65,8 @@
         products: null,
         params: null,
         currentPageNumb: 1,
-        filterItems: '30',
-        productsCategories: '30',
+        filterItems: 30,
+        productsCategories: null,
         uncheckRadio: false
       }
     },
@@ -108,7 +110,6 @@
       },
 
       async filterProducts(categoryItem) {
-        console.log(categoryItem)
         try {
           const {data: {products, ...rest}} = await productFilter(categoryItem);
           this.params = rest;

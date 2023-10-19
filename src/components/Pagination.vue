@@ -1,56 +1,100 @@
 <template>
-    <ul class="pagination">
-        <li><a @click="pageTrigger(this.currentPage - 1)" :class="{'disabled':currentPage === 1}" href="javascript:;" class="arrow-btn"><svg width="24" height="24" fill="none"><path d="m10 8-4 4m0 0 4 4m-4-4h12" stroke="#141C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li v-for="(page, index) in calcPages" :key="index"><a @click="pageTrigger(page)" :class="{'is-active' : currentPage === page}" href="javascript:;">{{page}}</a></li>
-        <li><a @click="pageTrigger(this.currentPage + 1)" :class="{'disabled': this.currentPage === calcPages}" href="javascript:;" class="arrow-btn"><svg width="24" height="24" fill="none"><path d="m14 16 4-4m0 0-4-4m4 4H6" stroke="#141C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-    </ul>
+  <ul class="pagination">
+    <li>
+      <a
+        @click="pageTrigger(currentPage - 1)"
+        :class="{ disabled: currentPage === 1 }"
+        href="javascript:;"
+        class="arrow-btn"
+      >
+        <svg width="24" height="24" fill="none">
+          <path
+            d="m10 8-4 4m0 0 4 4m-4-4h12"
+            stroke="#141C1D"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    </li>
+    <li v-for="(page, index) in visiblePages" :key="index">
+      <a
+        @click="pageTrigger(page)"
+        :class="{ 'is-active': currentPage === page }"
+        href="javascript:;"
+      >{{ page }}</a>
+    </li>
+    <li>
+      <a
+        @click="pageTrigger(currentPage + 1)"
+        :class="{ disabled: currentPage === calcPages }"
+        href="javascript:;"
+        class="arrow-btn"
+      >
+        <svg width="24" height="24" fill="none">
+          <path
+            d="m14 16 4-4m0 0-4-4m4 4H6"
+            stroke="#141C1D"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    </li>
+  </ul>
 </template>
+
 <script>
 export default {
-    name:"Pagination",
-    props: {
-        pageParams: {
-            type: Object,
-            required: true,
-        },
-        pageNumb: {
-            type: Number,
-            required: true
-        },
-        limit: {
-            type: String,
-            required: true
-        }
+  name: "Pagination",
+  props: {
+    pageParams: {
+      type: Object,
+      required: true,
     },
-    emits: ['setPage'],
-    data() {
-        return {
-            currentPage: null,
-        }
+    pageNumb: {
+      type: Number,
+      required: true,
     },
-    computed: {
-        calcPages() {
-            return Math.ceil(this.pageParams.total / parseInt(this.limit))
-        },
+    limit: {
+      type: Number,
+      required: true,
     },
-
-    methods: {
-        pageTrigger(page) {
-            // this.currentPage = page
-            if(page > this.calcPages ) {
-                this.currentPage = this.calcPages
-            } else if (page <= this.calcPages && page > 0) {
-                this.currentPage = page
-            } else {
-                this.currentPage = 1
-            }
-            this.$emit("setPage", this.currentPage)
-        }
+  },
+  emits: ['setPage'],
+  data() {
+    return {
+      currentPage: null,
+    };
+  },
+  computed: {
+    calcPages() {
+      return Math.ceil(this.pageParams.total / this.limit);
     },
-    mounted() {
-        this.currentPage = this.pageNumb
-    }
-}   
+    visiblePages() {
+      const pageCount = Math.min(this.calcPages, 4); // Number of pages to show
+      const firstPage = Math.max(1, this.currentPage - 1);
+      return Array.from({ length: pageCount }, (_, i) => firstPage + i);
+    },
+  },
+  methods: {
+    pageTrigger(page) {
+      if (page > this.calcPages) {
+        this.currentPage = this.calcPages;
+      } else if (page <= this.calcPages && page > 0) {
+        this.currentPage = page;
+      } else {
+        this.currentPage = 1;
+      }
+      this.$emit('setPage', this.currentPage);
+    },
+  },
+  mounted() {
+    this.currentPage = this.pageNumb;
+  },
+};
 </script>
 <style lang="scss" scoped>
     .pagination {

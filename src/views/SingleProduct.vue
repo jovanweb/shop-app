@@ -17,7 +17,7 @@
                         <h4 class="mb-"><strong>{{singleProduct.brand}}</strong></h4>
                         <div class="o-flex o-flex--center mb" v-if="singleProduct.rating">
                             <RatingStars class="mr-" :rating="3.5"/>
-                            <p class="mb0">{{singleProduct.rating}} ({{reviews?.length}} Reviews)</p>
+                            <!-- <p class="mb0">{{singleProduct.rating}} ({{params?.total}} Reviews)</p> -->
                         </div>
                         <p class="h6">${{singleProduct.price}}</p>
                         <p>{{singleProduct.description}}</p>
@@ -71,7 +71,7 @@
                         <a href="javascript:;" class="tab-link" :class="{'active':tabComponent === 'Reviews'}" @click="tabComponent = 'Reviews'">Reviews</a>
                     </template>
                     <template v-slot:body>
-                        <component v-if="singleProduct" :data="singleProduct" :reviews="reviews" :is="tabComponent"></component>
+                        <component v-if="singleProduct" :data="singleProduct" :is="tabComponent"></component>
                     </template>
                 </Tabs>
                 <div v-if="favoriteProd.length">
@@ -95,8 +95,6 @@ import Description from "../components/tabs/Description.vue"
 import Reviews from "../components/tabs/Reviews.vue"
 import SingleProductType2 from "../components/SingleProductType2.vue"
 import { singleProduct } from "@/api/products"
-import { comments } from "@/api/reviews"
-import toastr from "toastr";
 import store from "@/store";
 import { mapGetters } from "vuex";
 
@@ -108,7 +106,6 @@ export default {
         return {
             tabComponent: "Description",
             singleProduct: null,
-            reviews: null
         }
     },
     methods: {
@@ -122,16 +119,6 @@ export default {
                 toastr.error(e.response.data.message);
             }
         }, 
-
-        async getReviews() {
-            try {
-                const {data} = await comments();
-                this.reviews = data.comments;
-            }catch (e) {
-                console.log(e)
-                toastr.error(e.response.data.message);
-            }
-        },
 
         like(active) {
             if(active) {
@@ -160,7 +147,6 @@ export default {
     },
     mounted() {
         this.getProduct()
-        this.getReviews()
     }
 }
 </script>
