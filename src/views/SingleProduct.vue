@@ -17,7 +17,8 @@
                         <h4 class="mb-"><strong>{{singleProduct.brand}}</strong></h4>
                         <div class="o-flex o-flex--center mb" v-if="singleProduct.rating">
                             <RatingStars class="mr-" :rating="3.5"/>
-                            <!-- <p class="mb0">{{singleProduct.rating}} ({{params?.total}} Reviews)</p> -->
+                            <p class="mb0">{{singleProduct.rating}} ( Reviews)</p>
+                            <!-- {{params?.total}} -->
                         </div>
                         <p class="h6">${{singleProduct.price}}</p>
                         <p>{{singleProduct.description}}</p>
