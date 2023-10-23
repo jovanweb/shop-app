@@ -34,7 +34,7 @@
                                         <td>
                                             <InputNumber :qty="cartProduct.stock"/>
                                         </td>
-                                        <td>$300.00</td>
+                                        <td>${{cartProduct.price * cartProduct.stock}}</td>
                                         <td>
                                             <a href="#">
                                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
