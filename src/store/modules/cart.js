@@ -1,8 +1,12 @@
+import toastr from "toastr";
+
 export default {
     namespaced: true,
     state: {
         aside:false,
-        cartProducts: [],
+        subtotal: 0,
+        cartProducts: [
+        ],
     },
 
     mutations: {
@@ -10,36 +14,44 @@ export default {
             state.aside = payload
         },
 
-        // addFavorite(state, payload) {
-        //     const productExists = state.favoriteProducts.some((product) => product.id === payload.id);
+        addToCart(state, payload) {
 
-        //     if (!productExists) {
-        //         state.favoriteProducts.push(payload);
-        //     } else {
-        //         console.log("Product with the same ID already exists in favoriteProducts.");
-        //     }
-        // },
+            const productExists = state.cartProducts.some((product) => product.id === payload.id);
 
-        // removeFavorite(state, payload) {
-        //     const indexToRemove = state.favoriteProducts.findIndex(product => product.id === payload.id);
+            if (!productExists) {
+                state.cartProducts.push(payload);
+            } else {
+                toastr.error("nesto");
+            }
+        },
 
-        //     if (indexToRemove !== -1) {
-        //         state.favoriteProducts.splice(indexToRemove, 1);
-        //     }
-        // }
+        removeFromCart(state, payload) {
+            const indexToRemove = state.cartProducts.findIndex(product => product.id === payload.id);
+            if (indexToRemove === -1) {
+                state.cartProducts.splice(indexToRemove, 1);
+            }
+        },
+
+        addSubtotal(state, payload) {
+            state.subtotal = payload
+        }
     },
     actions: {
         setAside(context, payload) {
             context.commit('setAside', payload)
         },
 
-        // addFavorite(context, payload) {
-        //     context.commit('addFavorite', payload)
-        // },
+        addToCart(context, payload) {
+            context.commit('addToCart', payload)
+        },
 
-        // removeFavorite(context, payload) {
-        //     context.commit('removeFavorite', payload)
-        // },
+        removeFromCart(context, payload) {
+            context.commit('removeFromCart', payload)
+            
+        },
+        addSubtotal(context, payload) {
+            context.commit("addSubtotal", payload)
+        }
     },
     getters: {
         asideCart(state) {

@@ -8,7 +8,7 @@
                         <div class="big-image-wrapper" :style="'background-image: url(' + singleProduct.thumbnail + ');'"></div>
                         <div class="small-image-wrapper">
                             <div class="img-item" v-for="(image, index) in singleProduct.images" :key="index">
-                                <img :src="image" alt="">
+                                <img :src="image" alt="" >
                             </div>
                         </div>
                     </div>
@@ -35,8 +35,8 @@
                         <p class="text-medium mb-"><strong>Stock: </strong>{{singleProduct.stock}}</p>
 
                         <div class="o-flex o-flex--center mb+">
-                            <InputNumber class="mr" :max="singleProduct.stock"/>
-                            <button class="button button--primary o-flex--1 o-flex--justify-center mr" @click="triggerCartAside">Add to Cart</button>
+                            <InputNumber class="mr" :qty="1" :max="singleProduct.stock" @quantity="quantity"/>
+                            <button class="button button--primary o-flex--1 o-flex--justify-center mr" @click="triggerCartAside(singleProduct)">Add to Cart</button>
                             <FavoriteButton :active="favoriteProduct" @like="like"/>
                         </div>
                         <p class="text-medium mb-"><strong>Share</strong></p>
@@ -107,6 +107,8 @@ export default {
         return {
             tabComponent: "Description",
             singleProduct: null,
+            mainImage: null,
+            qty: 1,
         }
     },
     methods: {
@@ -129,8 +131,20 @@ export default {
             }
         },
 
-        triggerCartAside() {
+        triggerCartAside(product) {
             store.dispatch('cart/setAside', true)
+            store.dispatch('cart/addToCart', {
+                ...product,
+                stock: this.qty
+            })
+        },
+
+        slideImage(img) {
+            this.mainImage = img
+        },
+
+        quantity(qu) {
+            this.qty = qu;
         }
     },
 

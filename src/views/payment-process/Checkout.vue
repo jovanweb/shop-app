@@ -18,46 +18,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="cartProduct in cartProductList" :key="cartProduct">
                                         <td>
                                             <div class="flag">
                                                 <div class="flag__img">
-                                                    <img src="../../assets/images/chair.png" alt="">
+                                                    <img :src="cartProduct.thumbnail" alt="">
                                                 </div>
                                                 <div class="flag__body">
-                                                    <p><strong>Modern Sofa Chair</strong></p>
-                                                    <p>Color: Grey</p>
+                                                    <p><strong>{{cartProduct.title}}</strong></p>
+                                                    <p>Category: {{cartProduct.category}}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>$300.00</td>
+                                        <td>${{cartProduct.price}}</td>
                                         <td>
-                                            <InputNumber/>
-                                        </td>
-                                        <td>$300.00</td>
-                                        <td>
-                                            <a href="#">
-                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M4.16667 6.66699V15.0003C4.16667 16.8413 5.65905 18.3337 7.5 18.3337H12.5C14.3409 18.3337 15.8333 16.8413 15.8333 15.0003V6.66699M11.6667 9.16699V14.167M8.33333 9.16699L8.33333 14.167M13.3333 4.16699L12.1614 2.40916C11.8523 1.94549 11.3319 1.66699 10.7747 1.66699H9.22531C8.66805 1.66699 8.14767 1.94549 7.83856 2.40916L6.66667 4.16699M13.3333 4.16699H6.66667M13.3333 4.16699H17.5M6.66667 4.16699H2.5" stroke="#FF7262" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg> 
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="flag">
-                                                <div class="flag__img">
-                                                    <img src="../../assets/images/chair.png" alt="">
-                                                </div>
-                                                <div class="flag__body">
-                                                    <p><strong>Modern Sofa Chair</strong></p>
-                                                    <p>Color: Grey</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>$300.00</td>
-                                        <td>
-                                            <InputNumber/>
+                                            <InputNumber :qty="cartProduct.stock"/>
                                         </td>
                                         <td>$300.00</td>
                                         <td>
@@ -79,12 +54,19 @@
     </main>
 </template>
 <script>
+    import {  mapGetters } from "vuex";
+    // import store from "@/store";
     import Subtotal from "../../components/Subtotal.vue"
     import InputNumber from "../../components/InputNumber.vue"
     export default {
         name:"Checkout",
         components: {
             Subtotal, InputNumber,
+        },
+        computed: {
+            ...mapGetters({
+                cartProductList: 'cart/getCartProducts',
+            }),
         }
     }
 </script>
